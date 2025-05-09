@@ -44,6 +44,7 @@ dependencies:
   gap: ^3.0.1
   group_button: ^5.3.4
   intl: ^0.20.2
+  rename: ^3.1.0
 
 dev_dependencies:
   flutter_test:
