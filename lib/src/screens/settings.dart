@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/screens/sign_in.dart';
 import 'package:frqncy_app/src/services/auth_service.dart';
 
@@ -27,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
         title: const Text("Settings"),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
         ),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -38,12 +39,12 @@ class SettingsScreen extends StatelessWidget {
             child: ListView.separated(
               itemCount: settings.length,
               separatorBuilder:
-                  (_, __) => const Divider(color: Colors.white24, height: 1),
+                  (_, __) => Divider(color: Colors.white24, height: 1.h),
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
                     settings[index],
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16.sp),
                   ),
                   onTap: () {
                     // Handle each setting item tap
@@ -53,10 +54,10 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20).w,
             child: SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 60.h,
               child: ElevatedButton(
                 onPressed: () async {
                   await AuthService().signOut();
@@ -69,10 +70,10 @@ class SettingsScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF9B51E0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.r),
                   ),
                 ),
-                child: const Text("Log Out", style: TextStyle(fontSize: 16)),
+                child: Text("Log Out", style: TextStyle(fontSize: 17.sp)),
               ),
             ),
           ),

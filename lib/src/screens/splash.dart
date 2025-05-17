@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/screens/home.dart';
 import 'package:frqncy_app/src/screens/welcome.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -21,7 +22,7 @@ class SplashScreen extends StatelessWidget {
               body: Center(
                 child: LoadingAnimationWidget.progressiveDots(
                   color: Colors.white,
-                  size: 50,
+                  size: 50.sp,
                 ),
               ),
             );

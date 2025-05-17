@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frqncy_app/src/widget/feature_card.dart';
 import 'package:gap/gap.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String title;
@@ -36,25 +37,29 @@ class DetailsScreen extends StatelessWidget {
                   Image.asset(
                     imageAsset,
                     width: double.infinity,
-                    height: 300,
+                    height: 300.h,
                     fit: BoxFit.cover,
                   ),
                   Positioned(
-                    left: 16,
-                    top: 16,
+                    left: 16.w,
+                    top: 16.h,
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 24.sp,
+                      ),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 25.0),
+                    padding: EdgeInsets.only(top: 25.h),
                     child: Center(
                       child: Text(
                         barTitle,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 24,
+                          fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -66,63 +71,77 @@ class DetailsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 4,
-                        horizontal: 8,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 4.h,
+                        horizontal: 8.w,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white24,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
-                      child: const Text(
+                      child: Text(
                         "FEATURED",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ),
-                    const Gap(8),
+                    Gap(8.h),
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 22,
+                      style: TextStyle(
+                        fontSize: 22.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Gap(8),
+                    Gap(8.h),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        FaIcon(Icons.volume_up_outlined),
-                        Gap(5),
+                        FaIcon(
+                          Icons.volume_up_outlined,
+                          size: 16.sp,
+                          color: Colors.white,
+                        ),
+                        Gap(5.w),
                         Text(
                           description,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: 14.sp,
                             color: Colors.white70,
                           ),
                         ),
                       ],
                     ),
-                    const Gap(16),
+                    Gap(16.h),
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF6D349E),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30.r),
                         ),
                       ),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
+                          horizontal: 10.w,
+                          vertical: 5.h,
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            FaIcon(FontAwesomeIcons.lock, color: Colors.white),
-                            Gap(10),
-                            Text('Play'),
+                            FaIcon(
+                              FontAwesomeIcons.lock,
+                              color: Colors.white,
+                              size: 18.sp,
+                            ),
+                            Gap(10.w),
+                            Text(
+                              'Play',
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
                           ],
                         ),
                       ),
@@ -130,33 +149,39 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(20),
+              Gap(20.h),
               Align(
                 alignment: Alignment.centerLeft,
                 child: TabBar(
-                  // labelPadding: EdgeInsets.zero,
                   indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(
                       color: Color(0xFF6D349E),
-                      width: 2.5,
+                      width: 2.5.w,
                     ),
-                    insets: EdgeInsets.only(right: 30),
+                    insets: EdgeInsets.only(right: 30.w),
                   ),
                   isScrollable: true,
                   tabs: [
-                    Tab(child: Text('Recents', style: TextStyle(fontSize: 22))),
                     Tab(
-                      child: Text('Features', style: TextStyle(fontSize: 22)),
+                      child: Text(
+                        'Recents',
+                        style: TextStyle(fontSize: 22.sp),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Features',
+                        style: TextStyle(fontSize: 22.sp),
+                      ),
                     ),
                   ],
-
                   labelColor: Colors.white,
                   unselectedLabelColor: Colors.white54,
                   dividerHeight: 0,
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: 0.6.sh,
                 child: TabBarView(
                   children: [
                     Center(
@@ -166,7 +191,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     ListView.builder(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16.w),
                       itemCount: features.length,
                       itemBuilder: (context, index) {
                         final feature = features[index];
@@ -206,47 +231,47 @@ class FeatureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(12),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
         children: [
           Image.asset(
             feature.imageAsset,
-            width: 75,
-            height: 75,
+            width: 75.w,
+            height: 75.w,
             fit: BoxFit.cover,
           ),
-          const Gap(16),
+          Gap(16.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   feature.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Gap(4),
+                Gap(4.h),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     FaIcon(
                       Icons.volume_up_outlined,
                       color: Colors.white70,
-                      size: 16,
+                      size: 16.sp,
                     ),
-                    Gap(5),
+                    Gap(5.w),
                     Text(
                       feature.subtitle,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         color: Colors.white70,
                       ),
                     ),
@@ -255,7 +280,7 @@ class FeatureCard extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.lock, color: Colors.white30, size: 20),
+          Icon(Icons.lock, color: Colors.white30, size: 20.sp),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:frqncy_app/src/screens/details.dart';
-
-
 
 class FeatureCardTwo extends StatelessWidget {
   final FeatureItem feature;
@@ -11,46 +11,44 @@ class FeatureCardTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05), 
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         children: [
-          // Left: Texts
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   feature.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
+                Gap(8.h),
                 Text(
                   feature.subtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white70,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 12),
-          // Right: Icon/Image
+          Gap(12.w),
           ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             child: Image.asset(
               feature.imageAsset,
-              width: 75,
-              height: 75,
+              width: 75.w,
+              height: 75.w,
               fit: BoxFit.cover,
             ),
           ),

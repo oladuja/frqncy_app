@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/screens/meditate_screen.dart';
 import 'package:frqncy_app/src/screens/music_screen.dart';
 import 'package:frqncy_app/src/screens/sleep_screen.dart';
@@ -11,34 +12,35 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // No need to get size directly now, use ScreenUtil for sizes
+
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: ListView(
           children: [
-            const Gap(20),
+            Gap(20.h),
             TextField(
               decoration: InputDecoration(
                 hintText: 'Search here',
-                hintStyle: TextStyle(color: Colors.white70, fontSize: 14),
+                hintStyle: TextStyle(color: Colors.white70, fontSize: 14.sp),
                 prefixIcon: Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: EdgeInsets.all(18.w),
                   child: SvgPicture.asset(
                     'assets/svgs/search.svg',
-                    width: 17,
-                    height: 17,
+                    width: 17.w,
+                    height: 17.h,
                   ),
                 ),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.05),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.r)),
                   borderSide: BorderSide.none,
                 ),
               ),
             ),
-            const Gap(30),
+            Gap(30.h),
             const Text(
               'All For You',
               style: TextStyle(
@@ -47,78 +49,71 @@ class ExploreScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            const Gap(20),
-
+            Gap(20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CategoryButton(
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const MeditateScreen(),
-                        ),
-                      ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const MeditateScreen(),
+                    ),
+                  ),
                   title: "Meditate",
-                  width: size.width * 0.45,
+                  width: 0.45.sw,
                   assetName: 'assets/images/medidate.png',
                 ),
                 CategoryButton(
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) =>  SleepScreen()),
-                      ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) =>  SleepScreen()),
+                  ),
                   title: "Sleep",
                   assetName: 'assets/images/sleep.png',
-                  width: size.width * 0.4,
+                  width: 0.4.sw,
                 ),
               ],
             ),
-            const Gap(10),
+            Gap(10.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CategoryButton(
                   title: "Music",
                   assetName: 'assets/images/music.png',
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const MusicScreen()),
-                      ),
-
-                  width: size.width * 0.4,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MusicScreen()),
+                  ),
+                  width: 0.4.sw,
                 ),
                 CategoryButton(
                   title: "Therapy",
                   assetName: 'assets/images/therapy.png',
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const TherapyScreen(),
-                        ),
-                      ),
-
-                  width: size.width * 0.45,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const TherapyScreen(),
+                    ),
+                  ),
+                  width: 0.45.sw,
                 ),
               ],
             ),
-            const Gap(30),
-            FeaturedMeditation(),
-            const Gap(30),
-            SectionCard(title: 'Podcast', assetName: 'assets/svgs/podcast.svg'),
-            SectionCard(
+            Gap(30.h),
+            const FeaturedMeditation(),
+            Gap(30.h),
+            const SectionCard(title: 'Podcast', assetName: 'assets/svgs/podcast.svg'),
+            const SectionCard(
               title: 'Better Sleep Essentials',
               assetName: 'assets/svgs/sleep.svg',
             ),
-            SectionCard(
+            const SectionCard(
               title: 'Building healthier Family Relationship',
               assetName: 'assets/svgs/family.svg',
             ),
-            SectionCard(
+            const SectionCard(
               title: 'Mental Strength Training with FRQNCY',
               assetName: 'assets/svgs/mental.svg',
             ),
@@ -148,23 +143,22 @@ class CategoryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.all(4),
-        height: 60,
+        margin: EdgeInsets.all(4.w),
+        height: 60.h,
         width: width,
-
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(assetName),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         child: Center(
           child: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -180,15 +174,10 @@ class FeaturedMeditation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        // gradient: const LinearGradient(
-        //   colors: [Color(0xFFFA709A), Color(0xFFFEE140)],
-        //   begin: Alignment.topLeft,
-        //   end: Alignment.bottomRight,
-        // ),
-        image: DecorationImage(
+        borderRadius: BorderRadius.circular(16.r),
+        image: const DecorationImage(
           image: AssetImage('assets/images/guided.png'),
           fit: BoxFit.fill,
         ),
@@ -196,51 +185,51 @@ class FeaturedMeditation extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Managing Anxiety",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
-          const Gap(8),
+          Gap(8.h),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
             decoration: BoxDecoration(
               color: Colors.orange,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
-            child: const Text(
+            child: Text(
               "GUIDED MEDITATIONS",
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
-          const Gap(8),
+          Gap(8.h),
           Row(
-            children: const [
-              Icon(Icons.star, size: 16, color: Colors.white),
-              Gap(4),
-              Text("Beginner Level", style: TextStyle(color: Colors.white)),
+            children: [
+              Icon(Icons.star, size: 16.sp, color: Colors.white),
+              Gap(4.w),
+              Text("Beginner Level", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
             ],
           ),
-          const Gap(8),
+          Gap(8.h),
           Row(
-            children: const [
-              Icon(Icons.schedule, size: 16, color: Colors.white),
-              Gap(4),
+            children: [
+              Icon(Icons.schedule, size: 16.sp, color: Colors.white),
+              Gap(4.w),
               Text(
                 "5 weeks | 10 mins a day",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 14.sp),
               ),
             ],
           ),
-          const Gap(8),
+          Gap(8.h),
           Row(
-            children: const [
-              Icon(Icons.person, size: 16, color: Colors.white),
-              Gap(4),
-              Text("Led by Mina Starr", style: TextStyle(color: Colors.white)),
+            children: [
+              Icon(Icons.person, size: 16.sp, color: Colors.white),
+              Gap(4.w),
+              Text("Led by Mina Starr", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
             ],
           ),
         ],
@@ -258,27 +247,27 @@ class SectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
         children: [
           SvgPicture.asset(assetName),
-          const Gap(16),
+          Gap(16.w),
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 16),
+          Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 16.sp),
         ],
       ),
     );

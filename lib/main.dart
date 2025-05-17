@@ -3,6 +3,7 @@ import 'package:frqncy_app/src/config/routes.dart';
 import 'package:frqncy_app/src/config/theme.dart';
 import 'package:frqncy_app/src/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -16,13 +17,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'FRQNCY',
-      theme: theme,
-      routes: routes,
-      home: SplashScreen(),
-      // initialRoute: HomeScreen.routeName,
+    return ScreenUtilInit(
+      designSize: const Size(440, 956),
+      minTextAdapt: true,
+      builder: (context, child) => child!,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'FRQNCY',
+        theme: theme,
+        routes: routes,
+        home: SplashScreen(),
+        // initialRoute: HomeScreen.routeName,
+      ),
     );
   }
 }

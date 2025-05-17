@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FormWidget extends StatelessWidget {
   final String hintText;
@@ -28,20 +29,20 @@ class FormWidget extends StatelessWidget {
         hintText: hintText,
         hintStyle: TextStyle(
           color: Colors.white.withOpacity(0.5),
-          fontSize: 14,
+          fontSize: 14.sp,
         ),
         filled: true,
 
         fillColor: Colors.white.withOpacity(0.05),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           borderSide: BorderSide(
             color: Colors.white.withOpacity(0.1),
-            width: 1,
+            width: 1.w,
           ),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           borderSide: BorderSide(
             color: Colors.white.withOpacity(0.11),
             width: 1,

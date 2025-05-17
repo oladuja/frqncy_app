@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SignInWith extends StatelessWidget {
@@ -19,20 +20,23 @@ class SignInWith extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.only(left: 20, right: 20, bottom: 16),
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.04),
-
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
           children: [
-            Image.asset(imagePath, width: 34, height: 34),
-            Gap(12),
+            Image.asset(imagePath, width: 34.w, height: 34.w),
+            Gap(12.w),
             Text(
               'Continue With $value',
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 18.sp,
+                color: Colors.white,
+              ),
             ),
           ],
         ),

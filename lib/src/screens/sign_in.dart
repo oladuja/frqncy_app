@@ -9,6 +9,7 @@ import 'package:frqncy_app/src/widget/form_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:toastification/toastification.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -34,35 +35,29 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1C0430),
+      backgroundColor: const Color(0xFF1C0430),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // IconButton(
-                //   icon: Icon(Icons.arrow_back, color: Colors.white),
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                // ),
-                Gap(20),
+                Gap(20.h),
                 Text(
                   "Sign In",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 32,
+                    fontSize: 32.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Gap(10),
+                Gap(10.h),
                 Text(
                   "Lorem ipsum dolor sit amet consecture commodo sapien arcu porta sit semper sed.",
-                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                  style: TextStyle(color: Colors.white70, fontSize: 14.sp),
                 ),
-                Gap(40),
+                Gap(40.h),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -83,7 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           return null;
                         },
                       ),
-                      Gap(16),
+                      Gap(16.h),
                       FormWidget(
                         controller: _passwordController,
                         hintText: 'Password',
@@ -106,26 +101,26 @@ class _SignInScreenState extends State<SignInScreen> {
                     onPressed: () {},
                     child: Text(
                       "Forgot Password?",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
                     ),
                   ),
                 ),
-                Gap(20),
+                Gap(20.h),
                 _isLoading
                     ? Center(
                       child: LoadingAnimationWidget.progressiveDots(
                         color: Colors.white,
-                        size: 50,
+                        size: 50.w,
                       ),
                     )
                     : SizedBox(
                       width: double.infinity,
-                      height: 50,
+                      height: 60.h,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0XFF6D349E),
+                          backgroundColor: const Color(0XFF6D349E),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.r),
                           ),
                         ),
                         onPressed: () async {
@@ -164,7 +159,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             if (!context.mounted) return;
 
                             toastification.show(
-                              
                               context: context,
                               title: Text(
                                 'Error: $e',
@@ -179,42 +173,46 @@ class _SignInScreenState extends State<SignInScreen> {
                             _isLoading = false;
                           });
                         },
-
-                        child: Text("Sign In", style: TextStyle(fontSize: 18)),
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(fontSize: 17.sp),
+                        ),
                       ),
                     ),
-                Gap(30),
-                Center(
-                  child: Text(
-                    "Or Continue With",
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                ),
-                Gap(20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // socialButton(FontAwesomeIcons.facebook),
-                    Gap(20),
-                    socialButton(FontAwesomeIcons.google),
-                    Gap(20),
-                    socialButton(FontAwesomeIcons.apple),
-                  ],
-                ),
+                Gap(30.h),
+                // Center(
+                //   child: Text(
+                //     "Or Continue With",
+                //     style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+                //   ),
+                // ),
+                // Gap(20.h),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     // socialButton(FontAwesomeIcons.facebook),
+                //     Gap(20.w),
+                //     socialButton(FontAwesomeIcons.google),
+                //     Gap(20.w),
+                //     socialButton(FontAwesomeIcons.apple),
+                //   ],
+                // ),
                 Center(
                   child: TextButton(
                     onPressed:
                         () => Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (_) => SignUpScreen()),
+                          MaterialPageRoute(
+                            builder: (_) => const SignUpScreen(),
+                          ),
                           (_) => false,
                         ),
                     child: Text(
                       "Don't have any Account here? Sign Up",
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(color: Colors.white70, fontSize: 14.sp),
                     ),
                   ),
                 ),
-                Gap(20),
+                Gap(20.h),
               ],
             ),
           ),
@@ -229,8 +227,8 @@ class _SignInScreenState extends State<SignInScreen> {
         shape: BoxShape.circle,
         color: Colors.white.withOpacity(0.1),
       ),
-      padding: EdgeInsets.all(12),
-      child: Icon(icon, color: Colors.white, size: 24),
+      padding: EdgeInsets.all(12.w),
+      child: Icon(icon, color: Colors.white, size: 24.sp),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
@@ -17,9 +17,9 @@ class CustomBottomNavBar extends StatelessWidget {
     return Stack(
       children: [
         ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.r),
+            topRight: Radius.circular(30.r),
           ),
           child: BackdropFilter(
             filter: ImageFilter.blur(
@@ -31,87 +31,86 @@ class CustomBottomNavBar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.05),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(30.r),
+                  topRight: Radius.circular(30.r),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.white.withOpacity(0.4),
-                selectedLabelStyle: const TextStyle(fontSize: 10),
-                unselectedLabelStyle: const TextStyle(fontSize: 10),
+                selectedLabelStyle: TextStyle(fontSize: 10.sp),
+                unselectedLabelStyle: TextStyle(fontSize: 10.sp),
                 currentIndex: selectedIndex,
                 onTap: onItemTapped,
                 items: [
                   BottomNavigationBarItem(
                     icon: Image.asset(
                       'assets/images/home_o.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
-
                     activeIcon: Image.asset(
                       'assets/images/home.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     label: 'Today',
                   ),
                   BottomNavigationBarItem(
                     icon: Image.asset(
                       'assets/images/meditation.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     activeIcon: Image.asset(
                       'assets/images/m_o.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     label: 'Meditate',
                   ),
                   BottomNavigationBarItem(
                     icon: Image.asset(
                       'assets/images/night.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     activeIcon: Image.asset(
                       'assets/images/s_o.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     label: 'Sleep',
                   ),
                   BottomNavigationBarItem(
                     icon: Image.asset(
                       'assets/images/explore.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     activeIcon: Image.asset(
                       'assets/images/e.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     label: 'Explore',
                   ),
                   BottomNavigationBarItem(
                     icon: Image.asset(
                       'assets/images/profile.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     activeIcon: Image.asset(
                       'assets/images/p.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
-                    label: 'Bennett',
+                    label: 'You',
                   ),
                 ],
               ),

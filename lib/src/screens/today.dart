@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/screens/morning_card.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -62,10 +63,10 @@ class _TodayScreenState extends State<TodayScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding:  EdgeInsets.symmetric(horizontal: 24.0.w),
         child: ListView(
           children: [
-            Gap(10),
+            Gap(10.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -73,13 +74,13 @@ class _TodayScreenState extends State<TodayScreen> {
                   "Good ${getTimeOfDay()}, Bennett!",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.45),
-                    fontSize: 16,
+                    fontSize: 16.sp,
                   ),
                 ),
                 Row(
                   children: [
                     Icon(Icons.favorite_border, color: Colors.white),
-                    Gap(16),
+                    Gap(16.w),
                     Icon(Icons.notifications_none, color: Colors.white),
                   ],
                 ),
@@ -90,32 +91,32 @@ class _TodayScreenState extends State<TodayScreen> {
               "${getTimeOfDay()}:\nStart Your Day Right!",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 32,
+                fontSize: 32.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Gap(10),
+            Gap(10.h),
             Text(
               fullDate,
-              style: TextStyle(color: Colors.white54, fontSize: 14),
+              style: TextStyle(color: Colors.white54, fontSize: 14.sp),
             ),
-            Gap(24),
+            Gap(24.h),
             ...morningList.map((item) => MorningCard(item: item)),
-            Gap(24),
+            Gap(24.h),
             Text(
               "Daytime:\nStay Focused & Stress-Free!",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 28,
+                fontSize: 28.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Gap(10),
+            Gap(10.h),
             Text(
               "You've started your day well, lets maintain the energy",
-              style: TextStyle(color: Colors.white54, fontSize: 14),
+              style: TextStyle(color: Colors.white54, fontSize: 14.sp),
             ),
-            Gap(24),
+            Gap(24.h),
             ...daytimeList.map((item) => MorningCard(item: item)),
           ],
         ),

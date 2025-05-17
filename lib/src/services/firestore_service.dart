@@ -8,7 +8,7 @@ class FirestoreService {
 
   Future<void> saveUser(UserModel user) async {
     try {
-      await _db.collection('users').doc().set(user.toJson());
+      await _db.collection('users').doc(user.id).set(user.toJson());
     } catch (e) {
       logger.e('Error saving user: $e');
       rethrow;

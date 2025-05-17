@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/screens/home.dart';
 import 'package:group_button/group_button.dart';
 import 'package:gap/gap.dart';
@@ -14,7 +15,7 @@ class SupportJourneyScreen extends StatelessWidget {
   ];
 
   final GroupButtonController _controller = GroupButtonController(
-    selectedIndexes: [0, 1, 2], // Pre-selected buttons
+    selectedIndexes: [0, 1, 2],
   );
 
   SupportJourneyScreen({super.key});
@@ -25,7 +26,7 @@ class SupportJourneyScreen extends StatelessWidget {
       backgroundColor: Color(0xFF1C0430),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.0.w),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,26 +37,24 @@ class SupportJourneyScreen extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
-                Gap(20),
+                Gap(20.h),
                 Text(
                   "How can we support your journey today ?",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 28,
+                    fontSize: 28.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Gap(30),
+                Gap(30.h),
                 GroupButton(
                   controller: _controller,
                   isRadio: false,
                   buttons: options,
                   options: GroupButtonOptions(
-                    selectedColor: Color(
-                      0xFF2E1055,
-                    ), // Always keep background consistent
+                    selectedColor: Color(0xFF2E1055),
                     unselectedColor: Color(0xFF2E1055),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                     spacing: 15,
                     runSpacing: 15,
                     selectedTextStyle: TextStyle(
@@ -63,7 +62,7 @@ class SupportJourneyScreen extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                     ),
                     unselectedTextStyle: TextStyle(color: Colors.white70),
-                    buttonHeight: 60,
+                    buttonHeight: 60.h,
                     buttonWidth: double.infinity,
                     alignment: Alignment.centerLeft,
                     textAlign: TextAlign.start,
@@ -71,13 +70,13 @@ class SupportJourneyScreen extends StatelessWidget {
                   ),
                   buttonBuilder: (selected, value, context) {
                     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.05),
 
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20.r),
                       ),
-                      height: 60,
+                      height: 60.h,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -86,12 +85,12 @@ class SupportJourneyScreen extends StatelessWidget {
                             style: TextStyle(
                               color: selected ? Colors.white : Colors.white70,
                               fontWeight: FontWeight.normal,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                             ),
                           ),
                           Container(
-                            height: 24,
-                            width: 24,
+                            height: 24.w,
+                            width: 24.w,
                             decoration: BoxDecoration(
                               color:
                                   selected
@@ -108,7 +107,7 @@ class SupportJourneyScreen extends StatelessWidget {
                                 selected
                                     ? Icon(
                                       Icons.check,
-                                      size: 16,
+                                      size: 16.sp,
                                       color: Colors.white,
                                     )
                                     : null,
@@ -121,10 +120,10 @@ class SupportJourneyScreen extends StatelessWidget {
                     print('Selected: $value | Is Selected: $isSelected');
                   },
                 ),
-                Gap(30),
+                Gap(30.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
+                  height: 60.h,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0XFF6D349E),
@@ -138,11 +137,11 @@ class SupportJourneyScreen extends StatelessWidget {
                         ).push(MaterialPageRoute(builder: (_) => HomeScreen())),
                     child: Text(
                       "Start your Journey",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 17.sp),
                     ),
                   ),
                 ),
-                Gap(20),
+                Gap(20.h),
               ],
             ),
           ),
