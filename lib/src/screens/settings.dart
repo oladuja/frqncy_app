@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frqncy_app/src/screens/sign_in.dart';
+import 'package:frqncy_app/src/services/auth_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -57,11 +58,14 @@ class SettingsScreen extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed:
-                    () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => SignInScreen()),
-                      (_) => false,
-                    ),
+                onPressed: () async {
+                  await AuthService().signOut();
+                  if (!context.mounted) return;
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => SignInScreen()),
+                    (_) => false,
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF9B51E0),
                   shape: RoundedRectangleBorder(

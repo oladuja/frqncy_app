@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frqncy_app/src/models/user.dart';
 import 'package:frqncy_app/src/screens/home.dart';
 import 'package:frqncy_app/src/screens/sign_in.dart';
 import 'package:frqncy_app/src/screens/sign_up.dart';
 import 'package:frqncy_app/src/services/auth_service.dart';
+import 'package:frqncy_app/src/services/firestore_service.dart';
 import 'package:frqncy_app/src/widget/sign_in_with.dart';
 import 'package:toastification/toastification.dart';
 import 'package:gap/gap.dart';
@@ -42,13 +45,32 @@ class Welcome extends StatelessWidget {
                 onTap: () async {
                   try {
                     final user = await AuthService().signInWithGoogle();
-                    if (user != null) {
-                      if (!context.mounted) return;
-                      Navigator.of(
-                        context,
-                      ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
-                    }
+                    await FirestoreService().saveUser(
+                      UserModel(
+                        id: user!.user!.uid,
+                        name: user.user!.displayName!,
+                        emailAddress: user.user!.email!,
+                        imageUrl: user.user!.photoURL!,
+                      ),
+                    );
+                    if (!context.mounted) return;
+                    Navigator.of(
+                      context,
+                    ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+                  } on FirebaseAuthException catch (e) {
+                    if (!context.mounted) return;
+                    toastification.show(
+                      context: context,
+                      title: Text(
+                        'Google sign-in failed: $e',
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                      ),
+                      type: ToastificationType.error,
+                      autoCloseDuration: const Duration(seconds: 5),
+                    );
                   } catch (e) {
+                    if (!context.mounted) return;
                     toastification.show(
                       context: context,
                       title: Text(
@@ -73,13 +95,32 @@ class Welcome extends StatelessWidget {
                 onTap: () async {
                   try {
                     final user = await AuthService().signInWithApple();
-                    if (user != null) {
-                      if (!context.mounted) return;
-                      Navigator.of(
-                        context,
-                      ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
-                    }
+                    await FirestoreService().saveUser(
+                      UserModel(
+                        id: user!.user!.uid,
+                        name: user.user!.displayName!,
+                        emailAddress: user.user!.email!,
+                        imageUrl: user.user!.photoURL!,
+                      ),
+                    );
+                    if (!context.mounted) return;
+                    Navigator.of(
+                      context,
+                    ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+                  } on FirebaseAuthException catch (e) {
+                    if (!context.mounted) return;
+                    toastification.show(
+                      context: context,
+                      title: Text(
+                        'Apple sign-in failed: $e',
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                      ),
+                      type: ToastificationType.error,
+                      autoCloseDuration: const Duration(seconds: 5),
+                    );
                   } catch (e) {
+                    if (!context.mounted) return;
                     toastification.show(
                       context: context,
                       title: Text(

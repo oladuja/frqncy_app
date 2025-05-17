@@ -19,8 +19,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -30,8 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -76,8 +74,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     children: [
                       FormWidget(
-                        controller: _firstNameController,
-                        hintText: 'First Name',
+                        controller: _nameController,
+                        hintText: 'Name',
                         inputType: TextInputType.name,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
@@ -89,20 +87,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         obscureText: false,
                       ),
                       Gap(20),
-                      FormWidget(
-                        controller: _lastNameController,
-                        hintText: 'Last Name',
-                        inputType: TextInputType.name,
-                        validator: (v) {
-                          if (v == null || v.isEmpty) {
-                            return 'Please enter your last name';
-                          }
-                          return null;
-                        },
-                        isPassword: false,
-                        obscureText: false,
-                      ),
-                      Gap(20),
+                      // FormWidget(
+                      //   controller: _lastNameController,
+                      //   hintText: 'Last Name',
+                      //   inputType: TextInputType.name,
+                      //   validator: (v) {
+                      //     if (v == null || v.isEmpty) {
+                      //       return 'Please enter your last name';
+                      //     }
+                      //     return null;
+                      //   },
+                      //   isPassword: false,
+                      //   obscureText: false,
+                      // ),
+                      // Gap(20),
                       FormWidget(
                         controller: _emailController,
                         hintText: 'Email Address',
@@ -240,8 +238,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             await FirestoreService().saveUser(
                               UserModel(
                                 id: user!.user!.uid,
-                                firstName: _firstNameController.value.text,
-                                lastName: _lastNameController.value.text,
+                                name: _nameController.value.text,
                                 emailAddress: _emailController.value.text,
                                 imageUrl: '',
                               ),
