@@ -3,16 +3,27 @@ import 'package:flutter/material.dart';
 class FormWidget extends StatelessWidget {
   final String hintText;
   final TextInputType inputType;
+  final TextEditingController controller;
+  final String? Function(String?) validator;
+  final bool obscureText;
+  final bool isPassword;
+
   const FormWidget({
     super.key,
     required this.hintText,
     required this.inputType,
+    required this.controller,
+    required this.validator,
+    required this.obscureText, required this.isPassword,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: validator,
+      controller: controller,
       keyboardType: inputType,
+      obscureText: isPassword? obscureText : false,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(

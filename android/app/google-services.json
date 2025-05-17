@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "823324948076",
+    "project_id": "frqncyapp-b46bf",
+    "storage_bucket": "frqncyapp-b46bf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823324948076:android:60a9f87a11eead9ab60a49",
+        "android_client_info": {
+          "package_name": "com.frqncy.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823324948076-004b1j3t3hgsveafok086gkvq8dp9tv2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.frqncy.app",
+            "certificate_hash": "ee6742272714d7fe996c283bff8155a49aed84c9"
+          }
+        },
+        {
+          "client_id": "823324948076-frjdvnl5aqrpd77l7joi5ph4d44dhulj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiSDg2SGs1vcjMjamGmMsbgXWSDtJZBTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823324948076-frjdvnl5aqrpd77l7joi5ph4d44dhulj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "823324948076-fdnif13iqpbfe0ddqtooq3dl1vv3kp26.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.frqncy.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frqncy_app/src/screens/home.dart';
 import 'package:frqncy_app/src/screens/sign_in.dart';
+import 'package:frqncy_app/src/screens/sign_up.dart';
+import 'package:frqncy_app/src/services/auth_service.dart';
 import 'package:frqncy_app/src/widget/sign_in_with.dart';
+import 'package:toastification/toastification.dart';
 import 'package:gap/gap.dart';
 
 class Welcome extends StatelessWidget {
@@ -35,16 +39,68 @@ class Welcome extends StatelessWidget {
               SignInWith(
                 value: 'Google',
                 imagePath: 'assets/images/flat-color-icons_google.png',
+                onTap: () async {
+                  try {
+                    final user = await AuthService().signInWithGoogle();
+                    if (user != null) {
+                      if (!context.mounted) return;
+                      Navigator.of(
+                        context,
+                      ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+                    }
+                  } catch (e) {
+                    toastification.show(
+                      context: context,
+                      title: Text(
+                        'Google sign-in failed: $e',
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                      ),
+                      type: ToastificationType.error,
+                      autoCloseDuration: const Duration(seconds: 5),
+                    );
+                  }
+                },
               ),
-              SignInWith(
-                value: 'Facebook',
-                imagePath: 'assets/images/logos_facebook.png',
-              ),
+              // SignInWith(
+              //   value: 'Facebook',
+              //   imagePath: 'assets/images/logos_facebook.png',
+
+              // ),
               SignInWith(
                 value: 'Apple',
                 imagePath: 'assets/images/mdi_apple.png',
+                onTap: () async {
+                  try {
+                    final user = await AuthService().signInWithApple();
+                    if (user != null) {
+                      if (!context.mounted) return;
+                      Navigator.of(
+                        context,
+                      ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+                    }
+                  } catch (e) {
+                    toastification.show(
+                      context: context,
+                      title: Text(
+                        'Apple sign-in failed: $e',
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                      ),
+                      type: ToastificationType.error,
+                      autoCloseDuration: const Duration(seconds: 5),
+                    );
+                  }
+                },
               ),
-              SignInWith(value: 'Email', imagePath: 'assets/images/mail.png'),
+              SignInWith(
+                value: 'Email',
+                imagePath: 'assets/images/mail.png',
+                onTap:
+                    () => Navigator.of(
+                      context,
+                    ).push(MaterialPageRoute(builder: (_) => SignUpScreen())),
+              ),
               Gap(10),
               Row(
                 mainAxisSize: MainAxisSize.min,
