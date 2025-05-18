@@ -5,6 +5,7 @@ import 'package:frqncy_app/src/models/user.dart';
 import 'package:frqncy_app/src/screens/morning_card.dart';
 import 'package:frqncy_app/src/screens/settings.dart';
 import 'package:frqncy_app/src/services/firestore_service.dart';
+import 'package:frqncy_app/src/utils/logger.dart';
 import 'package:gap/gap.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -59,6 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
       _user = _firestoreService.getUser(uid);
+      logger.d("User ID: $uid");
     } else {
       _user = Future.value(null);
     }
@@ -78,10 +80,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data == null) {
+              logger.e(snapshot.hasError);
               return const Center(child: Text('An error occurred'));
             }
-
             final user = snapshot.data!;
+
+            logger.d("User: ${user.toJson()}");
+
             return ListView(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
               children: [
@@ -106,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Gap(16.h),
                 Center(
                   child: Text(
-                    'Lucas Bennett',
+                    user.name,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.sp,

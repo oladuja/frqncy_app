@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frqncy_app/src/screens/home.dart';
 import 'package:frqncy_app/src/screens/sign_up.dart';
 import 'package:frqncy_app/src/services/auth_service.dart';

@@ -75,7 +75,7 @@ class AuthService {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      logger.e('FirebaseAuthException (Email): ${e.message}');
+      logger.e('FirebaseAuthException: ${e.message}');
       rethrow;
     } catch (e) {
       logger.e('Email sign-in error: $e');

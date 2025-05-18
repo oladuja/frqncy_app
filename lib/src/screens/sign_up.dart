@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           id: userCredential!.user!.uid,
           name: _nameController.text.trim(),
           emailAddress: _emailController.text.trim(),
-          imageUrl: 'https://www.transparentpng.com/thumb/user/gray-user-profile-icon-png-fP8Q1P.png',
+          imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
         ),
       );
 

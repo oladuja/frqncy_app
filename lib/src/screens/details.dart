@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frqncy_app/src/screens/audio.dart';
 import 'package:frqncy_app/src/widget/feature_card.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -81,10 +82,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                       child: Text(
                         "FEATURED",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.sp,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 12.sp),
                       ),
                     ),
                     Gap(8.h),
@@ -138,10 +136,7 @@ class DetailsScreen extends StatelessWidget {
                               size: 18.sp,
                             ),
                             Gap(10.w),
-                            Text(
-                              'Play',
-                              style: TextStyle(fontSize: 14.sp),
-                            ),
+                            Text('Play', style: TextStyle(fontSize: 14.sp)),
                           ],
                         ),
                       ),
@@ -163,10 +158,7 @@ class DetailsScreen extends StatelessWidget {
                   isScrollable: true,
                   tabs: [
                     Tab(
-                      child: Text(
-                        'Recents',
-                        style: TextStyle(fontSize: 22.sp),
-                      ),
+                      child: Text('Recents', style: TextStyle(fontSize: 22.sp)),
                     ),
                     Tab(
                       child: Text(
@@ -230,58 +222,70 @@ class FeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16.h),
-      padding: EdgeInsets.all(12.w),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            feature.imageAsset,
-            width: 75.w,
-            height: 75.w,
-            fit: BoxFit.cover,
-          ),
-          Gap(16.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  feature.title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap:
+          () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder:
+                  (context) => PlayerScreen(
+                    tiile: feature.title,
+                    subTitle: feature.subtitle,
                   ),
-                ),
-                Gap(4.h),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FaIcon(
-                      Icons.volume_up_outlined,
-                      color: Colors.white70,
-                      size: 16.sp,
-                    ),
-                    Gap(5.w),
-                    Text(
-                      feature.subtitle,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.white70,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
             ),
           ),
-          Icon(Icons.lock, color: Colors.white30, size: 20.sp),
-        ],
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16.h),
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              feature.imageAsset,
+              width: 75.w,
+              height: 75.w,
+              fit: BoxFit.cover,
+            ),
+            Gap(16.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    feature.title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Gap(4.h),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FaIcon(
+                        Icons.volume_up_outlined,
+                        color: Colors.white70,
+                        size: 16.sp,
+                      ),
+                      Gap(5.w),
+                      Text(
+                        feature.subtitle,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.lock, color: Colors.white30, size: 20.sp),
+          ],
+        ),
       ),
     );
   }
