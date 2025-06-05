@@ -9,6 +9,7 @@ import 'package:frqncy_app/src/screens/sign_up.dart';
 import 'package:frqncy_app/src/services/auth_service.dart';
 import 'package:frqncy_app/src/services/firestore_service.dart';
 import 'package:frqncy_app/src/widget/sign_in_with.dart';
+import 'package:logger/logger.dart';
 import 'package:toastification/toastification.dart';
 import 'package:gap/gap.dart';
 
@@ -93,9 +94,15 @@ class Welcome extends StatelessWidget {
                   onTap: () async {
                     try {
                       final user = await AuthService().signInWithApple();
+                      Logger().i({
+                        'id': user.user!.uid,
+                        'name': user.user!.displayName ?? '',
+                        'emailAddress': user.user!.email!,
+                        'imageUrl': user.user!.photoURL!,
+                      });
                       await FirestoreService().saveUser(
                         UserModel(
-                          id: user!.user!.uid,
+                          id: user.user!.uid,
                           name: user.user!.displayName ?? '',
                           emailAddress: user.user!.email!,
                           imageUrl: user.user!.photoURL!,

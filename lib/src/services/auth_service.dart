@@ -35,13 +35,15 @@ class AuthService {
     }
   }
 
-  Future<UserCredential?> signInWithApple() async {
+  Future<UserCredential> signInWithApple() async {
     try {
       if (!Platform.isIOS && !Platform.isMacOS) {
         throw UnsupportedError(
           'Apple Sign-In is only supported on iOS and macOS.',
         );
       }
+
+      final rawNonce = generateNonce();
 
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
@@ -52,7 +54,7 @@ class AuthService {
 
       final oauthCredential = OAuthProvider('apple.com').credential(
         idToken: appleCredential.identityToken,
-        accessToken: appleCredential.authorizationCode,
+        rawNonce: rawNonce,
       );
 
       return await _auth.signInWithCredential(oauthCredential);
