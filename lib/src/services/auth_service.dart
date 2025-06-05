@@ -35,7 +35,7 @@ class AuthService {
     }
   }
 
-  Future<UserCredential?> signInWithApple() async {
+  Future<UserCredential> signInWithApple() async {
     try {
       if (!Platform.isIOS && !Platform.isMacOS) {
         throw UnsupportedError(
@@ -52,7 +52,6 @@ class AuthService {
 
       final oauthCredential = OAuthProvider('apple.com').credential(
         idToken: appleCredential.identityToken,
-        rawNonce: rawNonce
         accessToken: appleCredential.authorizationCode,
       );
 
