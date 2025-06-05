@@ -95,17 +95,17 @@ class Welcome extends StatelessWidget {
                     try {
                       final user = await AuthService().signInWithApple();
                       Logger().i({
-                        'id': user.user!.uid,
-                        'name': user.user!.displayName ?? '',
-                        'emailAddress': user.user!.email!,
-                        'imageUrl': user.user!.photoURL!,
+                        'id': user!.user!.uid,
+                        'name': user.user?.displayName ?? '',
+                        'emailAddress': user.user!.email,
+                        'imageUrl': user.user?.photoURL ?? '',
                       });
                       await FirestoreService().saveUser(
                         UserModel(
                           id: user.user!.uid,
-                          name: user.user!.displayName ?? '',
-                          emailAddress: user.user!.email!,
-                          imageUrl: user.user!.photoURL!,
+                          name: user.user?.displayName ?? '',
+                          emailAddress: user.user?.email ?? '',
+                          imageUrl: user.user?.photoURL ?? '',
                         ),
                       );
                       if (!context.mounted) return;
