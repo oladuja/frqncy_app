@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/screens/morning_card.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TodayScreen extends StatefulWidget {
   const TodayScreen({super.key});
@@ -12,6 +14,9 @@ class TodayScreen extends StatefulWidget {
 }
 
 class _TodayScreenState extends State<TodayScreen> {
+  String? userName;
+  String fullDate = DateFormat('EEEE, d MMMM yyyy').format(DateTime.now());
+
   final List<Map<String, dynamic>> morningList = [
     {
       "image": "assets/images/morning_meditation.png",
@@ -44,6 +49,25 @@ class _TodayScreenState extends State<TodayScreen> {
     },
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    loadUserName();
+  }
+
+  Future<void> loadUserName() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final name = doc.data()?['name'];
+      if (name != null) {
+        setState(() {
+          userName = name;
+        });
+      }
+    }
+  }
+
   String getTimeOfDay() {
     final hour = DateTime.now().hour;
 
@@ -58,12 +82,11 @@ class _TodayScreenState extends State<TodayScreen> {
     }
   }
 
-  String fullDate = DateFormat('EEEE, d MMMM yyyy').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 24.0.w),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w),
         child: ListView(
           children: [
             Gap(10.h),
@@ -71,7 +94,7 @@ class _TodayScreenState extends State<TodayScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Good ${getTimeOfDay()}, Bennett!",
+                  "Good ${getTimeOfDay()}, ${userName ?? '...'}!",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.45),
                     fontSize: 16.sp,
