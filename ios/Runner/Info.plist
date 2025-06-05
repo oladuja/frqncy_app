@@ -41,6 +41,28 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
+
+
+<!-- Google Sign-in Section -->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+
+			<string>com.googleusercontent.apps.823324948076-fdnif13iqpbfe0ddqtooq3dl1vv3kp26</string>
+		</array>
+	</dict>
+</array>
+
+<key>GIDClientID</key>
+<!-- TODO Replace this value: -->
+<!-- Copied from GoogleService-Info.plist key CLIENT_ID -->
+<string>823324948076-fdnif13iqpbfe0ddqtooq3dl1vv3kp26.apps.googleusercontent.com</string>
+
+
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>

@@ -4,9 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/models/user.dart';
 import 'package:frqncy_app/src/screens/morning_card.dart';
 import 'package:frqncy_app/src/screens/settings.dart';
+import 'package:frqncy_app/src/screens/sign_in.dart';
 import 'package:frqncy_app/src/services/firestore_service.dart';
 import 'package:frqncy_app/src/utils/logger.dart';
 import 'package:gap/gap.dart';
+
+import '../services/auth_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -81,7 +84,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data == null) {
               logger.e(snapshot.hasError);
-              return const Center(child: Text('An error occurred'));
+
+              return  Center(child: SizedBox(
+                width: double.infinity,
+                height: 60.h,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await AuthService().signOut();
+                    if (!context.mounted) return;
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => SignInScreen()),
+                          (_) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF9B51E0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                    ),
+                  ),
+                  child: Text("Log Out", style: TextStyle(fontSize: 17.sp)),
+                ),
+              ),);
             }
             final user = snapshot.data!;
 
