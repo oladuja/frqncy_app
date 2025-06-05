@@ -9,7 +9,6 @@ import 'package:frqncy_app/src/screens/sign_up.dart';
 import 'package:frqncy_app/src/services/auth_service.dart';
 import 'package:frqncy_app/src/services/firestore_service.dart';
 import 'package:frqncy_app/src/widget/sign_in_with.dart';
-import 'package:logger/logger.dart';
 import 'package:toastification/toastification.dart';
 import 'package:gap/gap.dart';
 
@@ -94,18 +93,13 @@ class Welcome extends StatelessWidget {
                   onTap: () async {
                     try {
                       final user = await AuthService().signInWithApple();
-                      Logger().i({
-                        'id': user!.user!.uid,
-                        'name': user.user?.displayName ?? '',
-                        'emailAddress': user.user!.email,
-                        'imageUrl': user.user?.photoURL ?? '',
-                      });
+                  
                       await FirestoreService().saveUser(
                         UserModel(
                           id: user.user!.uid,
-                          name: user.user?.displayName ?? '',
-                          emailAddress: user.user?.email ?? '',
-                          imageUrl: user.user?.photoURL ?? '',
+                          name: user.user!.displayName ?? '',
+                          emailAddress: user.user!.email!,
+                          imageUrl:'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1701420226~exp=1701420826~hmac=2284e7a4b1f4cc634d76e02dc665ad6f93fc816574f3a3a605581318745e20a0',
                         ),
                       );
                       if (!context.mounted) return;

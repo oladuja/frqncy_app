@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterSplashScreen.fadeIn(
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 1),
       nextScreen: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
