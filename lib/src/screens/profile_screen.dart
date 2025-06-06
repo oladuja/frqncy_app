@@ -85,27 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             } else if (!snapshot.hasData || snapshot.data == null) {
               logger.e(snapshot.hasError);
 
-              return  Center(child: SizedBox(
-                width: double.infinity,
-                height: 60.h,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await AuthService().signOut();
-                    if (!context.mounted) return;
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => SignInScreen()),
-                          (_) => false,
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF9B51E0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.r),
-                    ),
-                  ),
-                  child: Text("Log Out", style: TextStyle(fontSize: 17.sp)),
-                ),
-              ),);
+              return  Center(child: Text('Error Occurred'),);
             }
             final user = snapshot.data!;
 
