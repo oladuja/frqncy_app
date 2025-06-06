@@ -72,7 +72,7 @@ class Welcome extends StatelessWidget {
                       if (!context.mounted) return;
                       toastification.show(
                         context: context,
-                        title: Text('Google sign-in failed: $e'),
+                        title: Text('Google sign-in failed'),
                         type: ToastificationType.error,
                         autoCloseDuration: const Duration(seconds: 5),
                       );
@@ -80,7 +80,7 @@ class Welcome extends StatelessWidget {
                       if (!context.mounted) return;
                       toastification.show(
                         context: context,
-                        title: Text('Google sign-in failed: $e'),
+                        title: Text('Google sign-in failed'),
                         type: ToastificationType.error,
                         autoCloseDuration: const Duration(seconds: 5),
                       );
@@ -110,7 +110,7 @@ class Welcome extends StatelessWidget {
                       if (!context.mounted) return;
                       toastification.show(
                         context: context,
-                        title: Text('Apple sign-in failed: $e'),
+                        title: Text('Apple sign-in failed'),
                         type: ToastificationType.error,
                         autoCloseDuration: const Duration(seconds: 5),
                       );
@@ -118,7 +118,7 @@ class Welcome extends StatelessWidget {
                       if (!context.mounted) return;
                       toastification.show(
                         context: context,
-                        title: Text('Apple sign-in failed: $e'),
+                        title: Text('Apple sign-in failed'),
                         type: ToastificationType.error,
                         autoCloseDuration: const Duration(seconds: 5),
                       );
