@@ -4,12 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/models/user.dart';
 import 'package:frqncy_app/src/screens/morning_card.dart';
 import 'package:frqncy_app/src/screens/settings.dart';
-import 'package:frqncy_app/src/screens/sign_in.dart';
 import 'package:frqncy_app/src/services/firestore_service.dart';
 import 'package:frqncy_app/src/utils/logger.dart';
 import 'package:gap/gap.dart';
 
-import '../services/auth_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
