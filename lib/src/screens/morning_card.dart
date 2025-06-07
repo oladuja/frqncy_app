@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frqncy_app/src/models/content.dart';
 import 'package:frqncy_app/src/screens/track_description_page.dart';
 import 'package:gap/gap.dart';
 
 class MorningCard extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final Content content;
 
-  const MorningCard({super.key, required this.item});
+  const MorningCard({super.key, required this.content});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => TrackDescriptionPage(item: item,),
-        ),
-      ),
+      onTap:
+          () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TrackDescriptionPage(content: content),
+            ),
+          ),
       child: Container(
         margin: EdgeInsets.only(bottom: 16.h),
         padding: EdgeInsets.all(12),
@@ -26,11 +28,11 @@ class MorningCard extends StatelessWidget {
         child: Row(
           children: [
             Hero(
-              tag: item,
+              tag: content.id,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.r),
-                child: Image.asset(
-                  item['image'],
+                child: Image.network(
+                  content.imageUrl,
                   width: 80.w,
                   height: 80.h,
                   fit: BoxFit.cover,
@@ -43,7 +45,7 @@ class MorningCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item['title'],
+                    content.title,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -52,11 +54,8 @@ class MorningCard extends StatelessWidget {
                   ),
                   Gap(6.h),
                   Text(
-                    item['subtitle'],
-                    style: TextStyle(
-                      color: Colors.white60,
-                      fontSize: 13.sp,
-                    ),
+                    content.subtitle,
+                    style: TextStyle(color: Colors.white60, fontSize: 13.sp),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frqncy_app/src/models/content.dart';
 import 'package:frqncy_app/src/screens/audio.dart';
 import 'package:frqncy_app/src/widget/feature_card.dart';
 import 'package:gap/gap.dart';
@@ -10,7 +11,7 @@ class DetailsScreen extends StatelessWidget {
   final String barTitle;
   final String description;
   final String imageAsset;
-  final List features;
+  final List<Content> contents;
   final int type;
 
   const DetailsScreen({
@@ -18,7 +19,7 @@ class DetailsScreen extends StatelessWidget {
     required this.title,
     required this.description,
     required this.imageAsset,
-    required this.features,
+    required this.contents,
     required this.barTitle,
     required this.type,
   });
@@ -95,23 +96,19 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Gap(8.h),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        FaIcon(
-                          Icons.volume_up_outlined,
-                          size: 16.sp,
-                          color: Colors.white,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0.w),
+                      child: Text(
+                        description,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+
+                          color: Colors.white70,
                         ),
-                        Gap(5.w),
-                        Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     Gap(16.h),
                     ElevatedButton(
@@ -131,7 +128,7 @@ class DetailsScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             FaIcon(
-                              FontAwesomeIcons.lock,
+                              FontAwesomeIcons.play,
                               color: Colors.white,
                               size: 18.sp,
                             ),
@@ -145,54 +142,22 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
               Gap(20.h),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TabBar(
-                  indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(
-                      color: Color(0xFF6D349E),
-                      width: 2.5.w,
-                    ),
-                    insets: EdgeInsets.only(right: 30.w),
-                  ),
-                  isScrollable: true,
-                  tabs: [
-                    Tab(
-                      child: Text('Recents', style: TextStyle(fontSize: 22.sp)),
-                    ),
-                    Tab(
-                      child: Text(
-                        'Features',
-                        style: TextStyle(fontSize: 22.sp),
-                      ),
-                    ),
-                  ],
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white54,
-                  dividerHeight: 0,
-                ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                child: Text('Listen Now', style: TextStyle(fontSize: 22.sp)),
               ),
+
               SizedBox(
                 height: 0.6.sh,
-                child: TabBarView(
-                  children: [
-                    Center(
-                      child: Text(
-                        'Recents Coming Soon',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    ListView.builder(
-                      padding: EdgeInsets.all(16.w),
-                      itemCount: features.length,
-                      itemBuilder: (context, index) {
-                        final feature = features[index];
-                        return (type == 2)
-                            ? FeatureCardTwo(feature: feature)
-                            : FeatureCard(feature: feature);
-                      },
-                    ),
-                  ],
+                child: ListView.builder(
+                  padding: EdgeInsets.all(16.w),
+                  itemCount: contents.length,
+                  itemBuilder: (context, index) {
+                    final content = contents[index];
+                    return (type == 2)
+                        ? FeatureCardTwo(content: content)
+                        : FeatureCard(content: content);
+                  },
                 ),
               ),
             ],
@@ -203,22 +168,10 @@ class DetailsScreen extends StatelessWidget {
   }
 }
 
-class FeatureItem {
-  final String title;
-  final String subtitle;
-  final String imageAsset;
-
-  FeatureItem({
-    required this.title,
-    required this.subtitle,
-    required this.imageAsset,
-  });
-}
-
 class FeatureCard extends StatelessWidget {
-  final FeatureItem feature;
+  final Content content;
 
-  const FeatureCard({super.key, required this.feature});
+  const FeatureCard({super.key, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -226,11 +179,7 @@ class FeatureCard extends StatelessWidget {
       onTap:
           () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder:
-                  (context) => PlayerScreen(
-                    tiile: feature.title,
-                    subTitle: feature.subtitle,
-                  ),
+              builder: (context) => PlayerScreen(content: content),
             ),
           ),
       child: Container(
@@ -242,11 +191,14 @@ class FeatureCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image.asset(
-              feature.imageAsset,
-              width: 75.w,
-              height: 75.w,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: Image.network(
+                content.imageUrl,
+                width: 75.w,
+                height: 75.w,
+                fit: BoxFit.cover,
+              ),
             ),
             Gap(16.w),
             Expanded(
@@ -254,7 +206,7 @@ class FeatureCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    feature.title,
+                    content.title,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.sp,
@@ -272,7 +224,7 @@ class FeatureCard extends StatelessWidget {
                       ),
                       Gap(5.w),
                       Text(
-                        feature.subtitle,
+                        content.subtitle,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: Colors.white70,
@@ -283,7 +235,7 @@ class FeatureCard extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.lock, color: Colors.white30, size: 20.sp),
+            FaIcon(FontAwesomeIcons.play, color: Colors.white30, size: 20.sp),
           ],
         ),
       ),

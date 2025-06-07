@@ -19,27 +19,27 @@ class ExploreScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: ListView(
           children: [
-            Gap(20.h),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search here',
-                hintStyle: TextStyle(color: Colors.white70, fontSize: 14.sp),
-                prefixIcon: Padding(
-                  padding: EdgeInsets.all(18.w),
-                  child: SvgPicture.asset(
-                    'assets/svgs/search.svg',
-                    width: 17.w,
-                    height: 17.h,
-                  ),
-                ),
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.05),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12.r)),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
+            // Gap(20.h),
+            // TextField(
+            //   decoration: InputDecoration(
+            //     hintText: 'Search here',
+            //     hintStyle: TextStyle(color: Colors.white70, fontSize: 14.sp),
+            //     prefixIcon: Padding(
+            //       padding: EdgeInsets.all(18.w),
+            //       child: SvgPicture.asset(
+            //         'assets/svgs/search.svg',
+            //         width: 17.w,
+            //         height: 17.h,
+            //       ),
+            //     ),
+            //     filled: true,
+            //     fillColor: Colors.white.withOpacity(0.05),
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.all(Radius.circular(12.r)),
+            //       borderSide: BorderSide.none,
+            //     ),
+            //   ),
+            // ),
             Gap(30.h),
             const Text(
               'All For You',
@@ -102,8 +102,8 @@ class ExploreScreen extends StatelessWidget {
               ],
             ),
             Gap(30.h),
-            const FeaturedMeditation(),
-            Gap(30.h),
+            // const FeaturedMeditation(),
+            // Gap(30.h),
             const SectionCard(title: 'Podcast', assetName: 'assets/svgs/podcast.svg'),
             const SectionCard(
               title: 'Better Sleep Essentials',
@@ -255,7 +255,7 @@ class SectionCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(assetName),
+          SvgPicture.asset(assetName, height: 75.h,width:  75.h),
           Gap(16.w),
           Expanded(
             child: Text(
@@ -267,7 +267,7 @@ class SectionCard extends StatelessWidget {
               ),
             ),
           ),
-          Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 16.sp),
+          // Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 16.sp),
         ],
       ),
     );

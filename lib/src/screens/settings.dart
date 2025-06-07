@@ -9,7 +9,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = [
-      "Account & Subscription",
+      // "Account & Subscription",
       "Notifications",
       "Language",
       "Downloads",

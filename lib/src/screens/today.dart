@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frqncy_app/src/models/content.dart';
 import 'package:frqncy_app/src/screens/morning_card.dart';
+import 'package:frqncy_app/src/widget/loading_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,38 +19,6 @@ class _TodayScreenState extends State<TodayScreen> {
   String? userName;
   String fullDate = DateFormat('EEEE, d MMMM yyyy').format(DateTime.now());
 
-  final List<Map<String, dynamic>> morningList = [
-    {
-      "image": "assets/images/morning_meditation.png",
-      "title": "Energizing Morning Meditation",
-      "subtitle": "Wake up feeling positive and ready to embrace the day.",
-    },
-    {
-      "image": "assets/images/good_morning_gratitude.png",
-      "title": "Good Morning Gratitude",
-      "subtitle": "Relax and train your body to be free of anxiety.",
-    },
-    {
-      "image": "assets/images/wake_up_happy.png",
-      "title": "Wake Up Feeling Happy",
-      "subtitle":
-          "Boost your mood and cultivate a joyful start to your morning.",
-    },
-  ];
-
-  final List<Map<String, dynamic>> daytimeList = [
-    {
-      "image": "assets/images/relaxing_meditation.png",
-      "title": "Relaxing 5-Min Meditation",
-      "subtitle": "Keep your energy levels high throughout the day.",
-    },
-    {
-      "image": "assets/images/step_into_new_you.png",
-      "title": "Step Into the New You!",
-      "subtitle": "Break free from stress and embrace a fresh mindset.",
-    },
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -58,7 +28,8 @@ class _TodayScreenState extends State<TodayScreen> {
   Future<void> loadUserName() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
-      final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       final name = doc.data()?['name'];
       if (name != null) {
         setState(() {
@@ -70,7 +41,6 @@ class _TodayScreenState extends State<TodayScreen> {
 
   String getTimeOfDay() {
     final hour = DateTime.now().hour;
-
     if (hour >= 5 && hour < 12) {
       return 'Morning';
     } else if (hour >= 12 && hour < 17) {
@@ -82,6 +52,14 @@ class _TodayScreenState extends State<TodayScreen> {
     }
   }
 
+  Future<List<Map<String, dynamic>>> fetchContent(String path) async {
+    final snapshot = await FirebaseFirestore.instance.collection(path).get();
+    return snapshot.docs
+        .map((doc) => doc.data())
+        .cast<Map<String, dynamic>>()
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -89,7 +67,7 @@ class _TodayScreenState extends State<TodayScreen> {
         padding: EdgeInsets.symmetric(horizontal: 24.0.w),
         child: ListView(
           children: [
-            Gap(10.h),
+            Gap(20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -100,18 +78,11 @@ class _TodayScreenState extends State<TodayScreen> {
                     fontSize: 16.sp,
                   ),
                 ),
-                Row(
-                  children: [
-                    Icon(Icons.favorite_border, color: Colors.white),
-                    Gap(16.w),
-                    Icon(Icons.notifications_none, color: Colors.white),
-                  ],
-                ),
               ],
             ),
             Gap(24),
             Text(
-              "${getTimeOfDay()}:\nStart Your Day Right!",
+              "Start Your Day Right!",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 32.sp,
@@ -124,10 +95,32 @@ class _TodayScreenState extends State<TodayScreen> {
               style: TextStyle(color: Colors.white54, fontSize: 14.sp),
             ),
             Gap(24.h),
-            ...morningList.map((item) => MorningCard(item: item)),
+            FutureBuilder<List<Map<String, dynamic>>>(
+              future: fetchContent('home/inspiring/inspiring'),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LoadingWidget();
+                } else if (snapshot.hasError) {
+                  return Text('Error: \${snapshot.error}');
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Text('No content available.');
+                } else {
+                  return Column(
+                    children:
+                        snapshot.data!
+                            .take(3)
+                            .map(
+                              (item) =>
+                                  MorningCard(content: Content.fromJson(item)),
+                            )
+                            .toList(),
+                  );
+                }
+              },
+            ),
             Gap(24.h),
             Text(
-              "Daytime:\nStay Focused & Stress-Free!",
+              "Stay Focused & Stress-Free!",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28.sp,
@@ -140,7 +133,29 @@ class _TodayScreenState extends State<TodayScreen> {
               style: TextStyle(color: Colors.white54, fontSize: 14.sp),
             ),
             Gap(24.h),
-            ...daytimeList.map((item) => MorningCard(item: item)),
+            FutureBuilder<List<Map<String, dynamic>>>(
+              future: fetchContent('home/personal/personal'),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LoadingWidget();
+                } else if (snapshot.hasError) {
+                  return Text('Error: \${snapshot.error}');
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Text('No content available.');
+                } else {
+                  return Column(
+                    children:
+                        snapshot.data!
+                            .take(3)
+                            .map(
+                              (item) =>
+                                  MorningCard(content: Content.fromJson(item)),
+                            )
+                            .toList(),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),

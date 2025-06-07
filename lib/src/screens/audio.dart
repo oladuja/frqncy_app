@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frqncy_app/src/models/content.dart';
 import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
 
 class PlayerScreen extends StatefulWidget {
-  final String tiile;
-  final String subTitle;
-  const PlayerScreen({super.key, required this.tiile, required this.subTitle});
+  final Content content;
+  const PlayerScreen({super.key, required this.content});
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -24,7 +24,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   void initState() {
     super.initState();
     _generateRandomGradient();
-    _player.setAsset('assets/audio/audio.mp3');
+    _player.setUrl(widget.content.musicUrl);
 
     _player.positionStream.listen((pos) {
       setState(() => _position = pos);
@@ -91,7 +91,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
           gradient: LinearGradient(
             colors: _gradientColors,
             tileMode: TileMode.clamp,
-            
+
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -121,12 +121,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
               ),
               const Spacer(),
               Text(
-                widget.tiile,
+                widget.content.title,
                 style: TextStyle(color: Colors.white70, fontSize: 14.sp),
               ),
               Gap(10.h),
               Text(
-                widget.subTitle,
+                widget.content.subtitle,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
