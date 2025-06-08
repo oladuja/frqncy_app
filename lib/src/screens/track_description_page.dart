@@ -5,6 +5,7 @@ import 'package:frqncy_app/src/screens/audio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 class TrackDescriptionPage extends StatefulWidget {
   final Content content;
@@ -18,23 +19,36 @@ class TrackDescriptionPage extends StatefulWidget {
 class _TrackDescriptionPageState extends State<TrackDescriptionPage> {
   String duration = '--:-- mins';
 
-  Future<String> getAudioDuration(String url) async {
-    final player = AudioPlayer();
-    try {
-      await player.setUrl(url);
-      final duration = player.duration;
-      if (duration == null) return '0:00 mins';
+ Future<String> getAudioDuration(String url) async {
+  final player = AudioPlayer();
+  try {
+    await player.setAudioSource(
+      AudioSource.uri(
+        Uri.parse(url),
+        tag: MediaItem(
+          id: widget.content.id,
+          album: 'Frqncy',
+          title: widget.content.title,
+          artist: 'Frqncy',
 
-      final minutes = duration.inMinutes;
-      final seconds = duration.inSeconds % 60;
+          artUri: Uri.parse(widget.content.imageUrl),
+        ),
+      ),
+    );
+    final duration = player.duration;
+    if (duration == null) return '0:00 mins';
 
-      return '$minutes:${seconds.toString().padLeft(2, '0')} mins';
-    } catch (e) {
-      return '0:00 mins';
-    } finally {
-      await player.dispose();
-    }
+    final minutes = duration.inMinutes;
+    final seconds = duration.inSeconds % 60;
+
+    return '$minutes:${seconds.toString().padLeft(2, '0')} mins';
+  } catch (e) {
+    return '0:00 mins';
+  } finally {
+    await player.dispose();
   }
+}
+
 
   void checkDuration() async {
     String result = await getAudioDuration(widget.content.musicUrl);

@@ -68,7 +68,7 @@ class Welcome extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const HomeScreen()),
                       );
-                    } on FirebaseAuthException catch (e) {
+                    } on FirebaseAuthException catch (_) {
                       if (!context.mounted) return;
                       toastification.show(
                         context: context,
@@ -106,7 +106,7 @@ class Welcome extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const HomeScreen()),
                       );
-                    } on FirebaseAuthException catch (e) {
+                    } on FirebaseAuthException catch (_) {
                       if (!context.mounted) return;
                       toastification.show(
                         context: context,

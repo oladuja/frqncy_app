@@ -13,41 +13,6 @@ class ProfileScreen extends StatefulWidget {
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
-
-  static Widget _buildMiniCard({
-    required String title,
-    required String subtitle,
-    required String assetName,
-  }) {
-    return Container(
-      width: 160.w,
-      margin: EdgeInsets.only(right: 12.w),
-      padding: const EdgeInsets.all(12).w,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(assetName), fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Gap(8.w),
-          Text(
-            subtitle,
-            style: TextStyle(color: Colors.white, fontSize: 12.sp),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -246,10 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     return ListTile(
                       title: Text(
                         settings[index],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 16.sp),
                       ),
                       onTap: () {
                         // Handle each setting item tap

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frqncy_app/src/models/content.dart';
 import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 class PlayerScreen extends StatefulWidget {
   final Content content;
@@ -24,16 +25,32 @@ class _PlayerScreenState extends State<PlayerScreen> {
   void initState() {
     super.initState();
     _generateRandomGradient();
-    _player.setUrl(widget.content.musicUrl);
+    _initAudio();
+  }
+
+  Future<void> _initAudio() async {
+    try {
+      await _player.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(widget.content.musicUrl),
+          tag: MediaItem(
+            id: widget.content.musicUrl,
+            album: widget.content.subtitle,
+            title: widget.content.title,
+            artUri: Uri.parse(widget.content.imageUrl),
+          ),
+        ),
+      );
+    } catch (e) {
+      debugPrint("Audio setup error: $e");
+    }
 
     _player.positionStream.listen((pos) {
       setState(() => _position = pos);
     });
 
     _player.durationStream.listen((dur) {
-      if (dur != null) {
-        setState(() => _duration = dur);
-      }
+      if (dur != null) setState(() => _duration = dur);
     });
 
     _player.playingStream.listen((playing) {
@@ -90,8 +107,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: _gradientColors,
-            tileMode: TileMode.clamp,
-
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -109,13 +124,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       color: Colors.white,
                       onPressed: () => Navigator.of(context).pop(),
                     ),
-                    // Row(
-                    //   children: [
-                    //     const Icon(Icons.favorite_border, color: Colors.white),
-                    //     Gap(12.w),
-                    //     const Icon(Icons.share, color: Colors.white),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),
