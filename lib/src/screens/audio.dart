@@ -60,8 +60,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   void dispose() {
-    _player.dispose();
     super.dispose();
+    _player.dispose();
   }
 
   void _togglePlayback() async {
