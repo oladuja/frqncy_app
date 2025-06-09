@@ -45,6 +45,9 @@
 		<array>
 			<string>audio</string>
 		</array>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>This app requires microphone access for audio-related features.</string>
+
 
 <!-- Google Sign-in Section -->
 <key>CFBundleURLTypes</key>
