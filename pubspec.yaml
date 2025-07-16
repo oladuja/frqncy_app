@@ -66,6 +66,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_staggered_animations: ^1.1.1
   just_audio_background: ^0.0.1-beta.17
+  adapty_flutter: ^3.8.2
 
 dev_dependencies:
   flutter_test:
