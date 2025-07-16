@@ -22,40 +22,63 @@ class SubscriptionPlan {
 }
 
 class AdaptyPlansService {
-  // Load all plans from a specific paywall
+  // Load all plans from a specific paywall with better error handling
   Future<List<SubscriptionPlan>> loadPlansFromPaywall(
     String placementId,
   ) async {
     try {
-      // Get the paywall
+      print('Loading paywall for placement: $placementId');
+
+      // Get the paywall - this is where the audience error might occur
       final paywall = await Adapty().getPaywall(placementId: placementId);
+      print('Paywall loaded successfully');
 
       // Get products for this paywall
       final products = await Adapty().getPaywallProducts(paywall: paywall);
+      print('Products loaded: ${products.length}');
 
       // Convert products to subscription plans
       List<SubscriptionPlan> plans = [];
 
       for (final product in products) {
-        final plan = SubscriptionPlan(
-          id: product.vendorProductId,
-          title: product.localizedTitle,
-          description: product.localizedDescription,
-          price: product.price.amount.toString(),
-          period: _getPeriodString(product.subscription!.period),
-          product: product,
-          isPopular: _isPopularPlan(product.vendorProductId),
-        );
-        plans.add(plan);
+        // Check if product has subscription info
+        if (product.subscription != null) {
+          final plan = SubscriptionPlan(
+            id: product.vendorProductId,
+            title: product.localizedTitle,
+            description: product.localizedDescription,
+            price: product.price.amount.toString(),
+            period: _getPeriodString(product.subscription!.period),
+            product: product,
+            isPopular: _isPopularPlan(product.vendorProductId),
+          );
+          plans.add(plan);
+        } else {
+          // Handle one-time purchases
+          final plan = SubscriptionPlan(
+            id: product.vendorProductId,
+            title: product.localizedTitle,
+            description: product.localizedDescription,
+            price: product.price.amount.toString(),
+            period: 'One-time',
+            product: product,
+            isPopular: false,
+          );
+          plans.add(plan);
+        }
       }
 
       // Sort plans by duration (weekly, monthly, yearly)
       plans.sort((a, b) => _sortByDuration(a.period, b.period));
 
       return plans;
+    } on AdaptyError catch (e) {
+      print('Adapty Error: ${e.code} - ${e.message}');
+
+      rethrow;
     } catch (e) {
-      print('Error loading plans: $e');
-      return [];
+      print('General Error loading plans: $e');
+      rethrow;
     }
   }
 
@@ -64,8 +87,13 @@ class AdaptyPlansService {
     List<SubscriptionPlan> allPlans = [];
 
     for (final placementId in placementIds) {
-      final plans = await loadPlansFromPaywall(placementId);
-      allPlans.addAll(plans);
+      try {
+        final plans = await loadPlansFromPaywall(placementId);
+        allPlans.addAll(plans);
+      } catch (e) {
+        print('Failed to load plans from placement $placementId: $e');
+        // Continue with other placements
+      }
     }
 
     // Remove duplicates based on product ID
@@ -145,7 +173,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
 
     try {
       // Replace with your actual placement IDs
-      final placementIds = ['monthly'];
+      // Make sure these placements exist and have audiences configured
+      final placementIds = [
+        'monthly',
+      ];
 
       final plans = await _plansService.loadAllPlans(placementIds);
 
@@ -184,7 +215,19 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
           children: [
             Icon(Icons.error_outline, size: 64, color: Colors.red),
             SizedBox(height: 16),
-            Text('Error loading plans: $_error'),
+            Text(
+              'Error loading plans:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                _error!,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
             SizedBox(height: 16),
             ElevatedButton(onPressed: _loadPlans, child: Text('Retry')),
           ],
@@ -193,7 +236,21 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
     }
 
     if (_plans.isEmpty) {
-      return Center(child: Text('No subscription plans available'));
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.subscriptions_outlined, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text('No subscription plans available'),
+            SizedBox(height: 8),
+            Text(
+              'Make sure your placement has audiences configured',
+              style: TextStyle(color: Colors.grey),
+            ),
+          ],
+        ),
+      );
     }
 
     return ListView.builder(
@@ -300,11 +357,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
       Navigator.pop(context);
 
       // Check if purchase was successful
-      // if (profile) {
-      //   _showSuccessDialog('Subscription successful!');
-      // } else {
-      //   _showErrorDialog('Purchase failed. Please try again.');
-      // }
+    } on AdaptyError catch (e) {
+      // Hide loading
+      Navigator.pop(context);
+      _showErrorDialog('Purchase failed: ${e.message}');
     } catch (e) {
       // Hide loading
       Navigator.pop(context);
