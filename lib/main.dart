@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'firebase_options.dart';
+import 'package:adapty_flutter/adapty_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +19,38 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+    @override
+  void initState() {
+    super.initState();
+    _initializeAdapty();
+  }
+
+  Future<void> _initializeAdapty() async {
+    try {
+      await Adapty().activate(
+        configuration: AdaptyConfiguration(apiKey: 'YOUR_API_KEY')
+          ..withLogLevel(AdaptyLogLevel.debug)  // Use debug for testing
+          ..withObserverMode(false)  // Set to true if you handle purchases yourself
+          ..withCustomerUserId(null)  // Optional: set user ID
+          ..withIpAddressCollectionDisabled(false)
+          ..withAppleIdfaCollectionDisabled(false)
+          ..withGoogleAdvertisingIdCollectionDisabled(false),
+      );
+      print('Adapty initialized successfully');
+    } catch (e) {
+      print('Error initializing Adapty: $e');
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

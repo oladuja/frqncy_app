@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frqncy_app/src/screens/explore.dart';
 import 'package:frqncy_app/src/screens/profile_screen.dart';
 import 'package:frqncy_app/src/screens/today.dart';
+import 'package:frqncy_app/src/services/adapty_service.dart';
 import 'package:frqncy_app/src/widget/custom_bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = [
     TodayScreen(),
-    Center(child: Text('Meditate Page')),
+    SubscriptionPlansScreen(),
     Center(child: Text('Sleep Page')),
     ExploreScreen(),
     ProfileScreen(),
