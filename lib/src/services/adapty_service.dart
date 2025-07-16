@@ -145,7 +145,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
 
     try {
       // Replace with your actual placement IDs
-      final placementIds = ['premium_subscription', 'pro_features'];
+      final placementIds = ['monthly'];
 
       final plans = await _plansService.loadAllPlans(placementIds);
 

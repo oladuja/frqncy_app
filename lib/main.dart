@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _initializeAdapty() async {
     try {
       await Adapty().activate(
-        configuration: AdaptyConfiguration(apiKey: 'YOUR_API_KEY')
+        configuration: AdaptyConfiguration(apiKey: 'public_live_TePyjO2a.ds83rB2srxSycxY6IU5U')
           ..withLogLevel(AdaptyLogLevel.debug)  // Use debug for testing
           ..withObserverMode(false)  // Set to true if you handle purchases yourself
           ..withCustomerUserId(null)  // Optional: set user ID
@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       print('Error initializing Adapty: $e');
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
