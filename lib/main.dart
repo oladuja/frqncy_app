@@ -38,9 +38,9 @@ class _MyAppState extends State<MyApp> {
     try {
       await Adapty().activate(
         configuration: AdaptyConfiguration(apiKey: 'public_live_TePyjO2a.ds83rB2srxSycxY6IU5U')
-          ..withLogLevel(AdaptyLogLevel.debug)  // Use debug for testing
-          ..withObserverMode(false)  // Set to true if you handle purchases yourself
-          ..withCustomerUserId(null)  // Optional: set user ID
+          ..withLogLevel(AdaptyLogLevel.debug)  
+          ..withObserverMode(false) 
+          ..withCustomerUserId(null) 
           ..withIpAddressCollectionDisabled(false)
           ..withAppleIdfaCollectionDisabled(false)
           ..withGoogleAdvertisingIdCollectionDisabled(false),
